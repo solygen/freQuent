@@ -2,7 +2,23 @@ define([], function () {
 
     'use strict';
 
-    return {
+    /**
+     * returns yyyy-mm-dd
+     * @private
+     * @param  {date} dat
+     * @return {string}
+     */
+    var dateToKey = function (dat) {
+        var dd = dat.getDate(),
+            mm = dat.getMonth() + 1,
+            yyyy = dat.getFullYear();
+        //prefix
+        dd = dd < 10 ? '0' + dd : dd;
+        mm = mm < 10 ? '0' + mm : mm;
+        return yyyy + '-' + mm + '-' + dd;
+    };
+
+    var date = {
 
             getDate: function (daykey) {
                 return new Date(daykey);
@@ -67,49 +83,26 @@ define([], function () {
                 }
             },
 
-            getIso: function (day) {
-                var dd = day.getDate(),
-                    mm = day.getMonth() + 1,
-                    yyyy = day.getFullYear();
-                //prefix
-                dd = dd < 10 ? '0' + dd : dd;
-                mm = mm < 10 ? '0' + mm : mm;
-                return yyyy + '-' + mm + '-' + dd;
-            },
-
             //returns yyyy-mm-dd from date
             getDateKey: function (day) {
                 var dmy = day.split("."),
                     daykey  = new Date().getFullYear() + '-' + dmy[1] + '-' +  dmy[0],
-                    pdate = this.getPayingDate(daykey),
-                    iso = this.getIso(pdate);
-                return iso;
+                    pdate = this.getPayingDate(daykey);
+                return dateToKey(pdate);
             },
 
             //return yyyy-mm-dd
             getRetroKey: function () {
                 var today = new Date();
-
                 today.setDate(today.getDate() - 21);
-                var dd = today.getDate(),
-                    mm = today.getMonth() + 1,
-                    yyyy = today.getFullYear();
-                //prefix
-                dd = dd < 10 ? '0' + dd : dd;
-                mm = mm < 10 ? '0' + mm : mm;
-                return yyyy + '-' + mm + '-' + dd;
+                return dateToKey(today);
             },
 
             //return yyyy-mm-dd
             getNowKey: function (day) {
-                var today = new Date(),
-                    dd = today.getDate(),
-                    mm = today.getMonth() + 1,
-                    yyyy = today.getFullYear();
-                //prefix
-                dd = dd < 10 ? '0' + dd : dd;
-                mm = mm < 10 ? '0' + mm : mm;
-                return yyyy + '-' + mm + '-' + dd;
+                return dateToKey(new Date());
             }
         };
+
+    return date;
 });

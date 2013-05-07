@@ -1,11 +1,5 @@
 define([], function () {
 
-/*
-                tags: [
-                    'credit', 'car', 'pension', 'insurance', 'electricity', 'gas', 'water', 'garbage', 'telecommunication', 'mobile', 'club', 'health', 'tax', 'fee'
-                ],
- */
-
     'use strict';
 
     return [
