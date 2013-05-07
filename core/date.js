@@ -20,10 +20,10 @@ define([], function () {
 
     var date = {
 
-            getDate: function (daykey) {
-                return new Date(daykey);
-            },
-
+            /**
+             * @param  {date} date
+             * @return {string} weekday
+             */
             getWeekday: function (date) {
                 date = $.type(date) === 'string' ? this.getDate(date) : date;
                 switch (date.getDay()) {
@@ -44,15 +44,10 @@ define([], function () {
                 }
             },
 
-            getPayingDate: function (date) {
-                date = $.type(date) === 'string' ? this.getDate(date) : date;
-                if (this.getWeekday(date) === 'Saturday')
-                    date.setDate(date.getDate() + 2);
-                else if (this.getWeekday(date) === 'Sunday')
-                    date.setDate(date.getDate() + 1);
-                return date;
-            },
-
+            /**
+             * @param  {date} date
+             * @return {string} month
+             */
             getMonth: function (date) {
                 date = $.type(date) === 'string' ? this.getDate(date) : date;
                 switch (date.getUTCMonth()) {
@@ -83,7 +78,32 @@ define([], function () {
                 }
             },
 
-            //returns yyyy-mm-dd from date
+            /**
+             * @param  {string} daykey
+             * @return {date}
+             */
+            getDate: function (daykey) {
+                return new Date(daykey);
+            },
+
+            /**
+             * get next valid date for paying (mo-fr)
+             * @param  {date} date
+             * @return {date}
+             */
+            getPayingDate: function (date) {
+                date = $.type(date) === 'string' ? this.getDate(date) : date;
+                if (this.getWeekday(date) === 'Saturday')
+                    date.setDate(date.getDate() + 2);
+                else if (this.getWeekday(date) === 'Sunday')
+                    date.setDate(date.getDate() + 1);
+                return date;
+            },
+
+            /**
+             * @param  {date} day
+             * @return {string}
+             */
             getDateKey: function (day) {
                 var dmy = day.split("."),
                     daykey  = new Date().getFullYear() + '-' + dmy[1] + '-' +  dmy[0],
@@ -91,15 +111,20 @@ define([], function () {
                 return dateToKey(pdate);
             },
 
-            //return yyyy-mm-dd
+            /**
+             * @param  {date} day
+             * @return {string}
+             */
             getRetroKey: function () {
                 var today = new Date();
                 today.setDate(today.getDate() - 21);
                 return dateToKey(today);
             },
 
-            //return yyyy-mm-dd
-            getNowKey: function (day) {
+            /**
+             * @return {string}
+             */
+            getNowKey: function () {
                 return dateToKey(new Date());
             }
         };
