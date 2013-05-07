@@ -1,0 +1,18 @@
+{
+    "name": "default",
+    "version": "0.0.0",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components"
+    ],
+    "dependencies": {
+                "jquery": "latest",
+                "font-awesome": "latest",
+                "bootstrap": "latest",
+                "backbone": "latest",
+                "underscore": "latest",
+                "requirejs": "latest",
+                "modernizr": "latest"
+        }
+}
