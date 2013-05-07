@@ -1,19 +1,18 @@
-require([
-		 'view'], function(view) {
+require(['view'], function (view) {
 
-	"use strict"
+    'use strict';
 
-	// fake console
-	if (typeof window.console === 'undefined') {
-	    window.console = { log: $.noop, debug: $.noop, error: $.noop, warn: $.noop };
-	}
+    // fake console
+    if (typeof window.console === 'undefined') {
+        window.console = { log: $.noop, debug: $.noop, error: $.noop, warn: $.noop };
+    }
 
-	//config require
-	require.config({
-	    waitSeconds: 2
-	});
+    //config require
+    require.config({
+        waitSeconds: 2
+    });
 
-	view.render();
+    view.render();
 });
 
 
