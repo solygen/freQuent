@@ -1,3 +1,4 @@
+//keep jshint happy
 var module = module || {};
 
 module.exports = function (grunt) {
@@ -10,7 +11,7 @@ module.exports = function (grunt) {
         //export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
         jsdoc : {
             dist : {
-                src: ['core/*.js'],
+                src: ['lib/*.js'],
                 options: {
                     destination: 'doc'
                 }
@@ -19,7 +20,8 @@ module.exports = function (grunt) {
 
         // A list of files, which will be syntax-checked by JSHint
         jshint: {
-            files: ['Gruntfile.js', 'core/*.js'],
+            files: ['Gruntfile.js', 'lib/*.js'],
+            //http://www.jshint.com/docs/
             //https://github.com/gruntjs/grunt-contrib-jshint/blob/master/docs/jshint-examples.md
             options: {
                 bitwise: false,
@@ -30,16 +32,20 @@ module.exports = function (grunt) {
                 evil: true,
                 forin: false,
                 immed: true,
+                indent: 4,
                 loopfunc: false,
                 nomen: false,
+                noempty: true,
                 onevar: false,
                 plusplus: false,
+                quotmark: 'single',
                 regexp: false,
                 regexdash: true,
                 shadow: true,
                 strict: true,
                 trailing: true,
                 undef: true,
+                unused: true,
                 validthis: true,
                 white: true,
                 predef: ['$', '_', 'define', 'require']
@@ -49,8 +55,8 @@ module.exports = function (grunt) {
         // Files to be concatenated (source and destination files)
         concat: {
             js: {
-                src: ['core/*.js'],
-                dest: 'core/core.js'
+                src: ['lib/*.js'],
+                dest: 'lib/freQuent.js'
             }
         },
 
@@ -58,7 +64,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 src: ['<%= concat.js.dest %>'],
-                dest: 'core/core.min.js'
+                dest: 'lib/freQuent.min.js'
             }
         },
 
@@ -69,16 +75,13 @@ module.exports = function (grunt) {
 
     });
 
-    // Load the plugins that provide the tasks we specified in package.json.
+    // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jsdoc');
 
-
-    // This is the default task being executed if Grunt
-    // is called without any further parameter.
+    // if grint is called without any further parameter
     grunt.registerTask('default', ['jshint']);
-
 };
