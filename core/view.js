@@ -4,14 +4,13 @@ define(['data', 'date'], function (data, date) {
 
     var app = {
             calendar: {},
-            level: 1000,
-            levelmin: 2000,
-            puffer: 500,
+            level: 3357,
+            puffer: 500, 
             current: {},
 
             setLevel: function (value) {
                 app.level = value;
-                app.levelmin = value < app.levelmin ? value : app.levelmin;
+                app.levelmin = typeof app.levelmin === 'undefined' || value < app.levelmin  ? value : app.levelmin;
             },
 
             //get service object by id
@@ -114,10 +113,7 @@ define(['data', 'date'], function (data, date) {
                 var content = app.renderContent();
                 $($.find('#content')).html(content);
 
-                //min
-                console.log(app.levelmin);
-
-                $($.find('#min')).text('min: ' + Math.round(app.levelmin));
+                $($.find('#min')).text('min: ' + Math.round(app.levelmin || app.level));
 
 
             }
