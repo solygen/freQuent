@@ -6,10 +6,11 @@
         "url": "https://github.com/solygen/freQuent"
     },
     "devDependencies": {
-        "grunt": "latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-contrib-concat": "latest",
-        "grunt-contrib-uglify": "latest",
+        "grunt": "~0.4",
+        "grunt-contrib-jshint": "~0.5",
+        "grunt-contrib-concat": "~0.3",
+        "grunt-contrib-uglify": "~0.2",
+        "grunt-contrib-copy": "~0.4",
         "grunt-contrib-watch": "latest",
         "grunt-jsdoc":"latest"
     }
