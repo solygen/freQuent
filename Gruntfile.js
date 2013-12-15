@@ -26,35 +26,6 @@ module.exports = function (grunt) {
         // A list of files, which will be syntax-checked by JSHint
         jshint: {
             files: ['Gruntfile.js', 'lib/*.js'],
-            //http://www.jshint.com/docs/
-            //https://github.com/gruntjs/grunt-contrib-jshint/blob/master/docs/jshint-examples.md
-            options: {
-                bitwise: false,
-                browser: true,
-                debug: true,
-                devel: true,
-                eqeqeq: true,
-                evil: true,
-                forin: false,
-                immed: true,
-                indent: 4,
-                loopfunc: false,
-                nomen: false,
-                noempty: true,
-                onevar: false,
-                plusplus: false,
-                quotmark: 'single',
-                regexp: false,
-                regexdash: true,
-                shadow: true,
-                strict: true,
-                trailing: true,
-                undef: true,
-                unused: true,
-                validthis: true,
-                white: true,
-                predef: ['$', '_', 'define', 'require']
-            }
         },
 
         // Files to be concatenated (source and destination files)
