@@ -7,12 +7,12 @@
         "components"
     ],
     "dependencies": {
-                "jquery": "latest",
-                "font-awesome": "latest",
-                "bootstrap": "latest",
-                "backbone": "latest",
-                "underscore": "latest",
-                "requirejs": "latest",
-                "modernizr": "latest"
-        }
+            "jquery": "latest",
+            "font-awesome": "latest",
+            "bootstrap": "latest",
+            "backbone": "latest",
+            "underscore": "latest",
+            "requirejs": "latest",
+            "modernizr": "latest"
+    }
 }
