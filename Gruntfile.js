@@ -64,4 +64,5 @@ module.exports = function (grunt) {
 
     // if grint is called without any further parameter
     grunt.registerTask('default', ['jsdoc', 'jshint', 'jsdoc', 'concat', 'uglify']);
+    grunt.registerTask('build', ['concat', 'uglify']);
 };
