@@ -16,7 +16,7 @@ module.exports = function (grunt) {
         // A list of files, which will be syntax-checked by JSHint
         jshint: {
             files: ['Gruntfile.js', 'lib/*.js'],
-        }
+        },
 
         watch: {
             files: '<%= jshint.files %>',

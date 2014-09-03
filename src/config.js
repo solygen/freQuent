@@ -8,7 +8,7 @@ define(['prototype'], function (prototype) {
         balance: {
             //day: '2013-04-01',
             day: (new Date()).toIso(),
-            amount: 3357
+            amount: 2155
         },
         puffer: 1000
     };
