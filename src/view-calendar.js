@@ -39,7 +39,7 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
              * @return {object} jquery node (row)
              */
             getRow: function (balance, amount, name, icon) {
-                var $row = $('<div>').addClass('row-fluid'),
+                var $row = $('<div style="padding: 2px">').addClass('row-fluid'),
                     $balance = $('<div>').addClass('span2').text(app.numberFormat(Math.round(balance)) || ''),
                     $amount = $('<div>').addClass('span2').text(app.numberFormat(amount)),
                     $name = $('<div>').addClass('span7').text(name),
@@ -132,10 +132,19 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
              *
              */
             addToCalendar: function (service) {
+                var years = [new Date().getFullYear()];
+
+                var today = new Date();
+                today.setDate(today.getDate() + 365);
+                years.push(today.getFullYear());
+
+
                 _.each(service.targets, function (dayofyear) {
-                    var key = date.getDateKey(dayofyear),
-                        spending = app.calendar[key] = app.calendar[key] || [];
-                    spending.push(service.id);
+                    _.each(years, function (year) {
+                        var key = date.getDateKey(dayofyear, year),
+                            spending = app.calendar[key] = app.calendar[key] || [];
+                        spending.push(service.id);
+                    })
                 });
 
             },

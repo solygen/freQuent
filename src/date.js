@@ -75,9 +75,9 @@ define([], function () {
              * @param  {date} dayofyear (30.12.)
              * @return {string}
              */
-            getDateKey: function (dayofyear) {
+            getDateKey: function (dayofyear, year) {
                 var dmy = dayofyear.split('.'),
-                    daykey  = new Date().getFullYear() + '-' + dmy[1] + '-' +  dmy[0],
+                    daykey  = year + '-' + dmy[1] + '-' +  dmy[0],
                     pdate = this.getPayingDate(daykey);
                 return pdate.toIso();
             },
@@ -88,7 +88,7 @@ define([], function () {
              */
             getRetroKey: function (iso) {
                 var today = new Date(iso);
-                today.setDate(today.getDate() - 21);
+                today.setDate(today.getDate() - 7);
                 return today.toIso();
             },
 
