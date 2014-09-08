@@ -46,10 +46,10 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
                     $icon = $('<div>').addClass('span1').append($('<i>').addClass(icon || '').addClass('iconx'));
 
                 if (amount < 0) {
-                    $icon.css('background-color', '#FF3333');
-                    $balance.css('background-color', '#FF3333');
+                    $icon.css('background-color', 'rgba(255, 51, 51, 0.32)');
+                    $balance.css('background-color', 'rgba(255, 51, 51, 0.32)');
                     $amount.css('background-color', '#EE0000');
-                    $name.css('background-color', '#FF3333');
+                    $name.css('background-color', 'rgba(255, 51, 51, 0.32)');
                 } else {
                     $icon.css('background-color', '#CDE472');
                     $balance.css('background-color', '#CDE472');
@@ -59,10 +59,10 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
 
                 //past
                 if (!balance) {
-                    $icon.css('background-color', 'Snow');
-                    $balance.css('background-color', 'Snow');
-                    $amount.css('background-color', 'Snow');
-                    $name.css('background-color', 'Snow');
+                    $icon.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $balance.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $amount.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $name.css('background-color', 'rgba(153, 153, 153, 0.08)');
                 }
 
                 return $row.append($icon, $balance, $amount, $name);
@@ -78,7 +78,7 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
                     same = (app.current.month || '') === month;
                 app.current.month = month;
                 if (!same)
-                    return $('<h1>').text(month).css('padding-top', '48px');
+                    return $('<h1>').text(month).css('padding-top', '28px');
                 else
                     return '';
             },
@@ -115,9 +115,9 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
                             var service = main.getService(id);
                             if (app.balance.day <= key) {
                                 app.setBalance(app.balance.amount + service.amount);
-                                content.append($('<p>').append(app.getRow(app.balance.amount, service.amount, service.name, service.icon)));
+                                content.append(app.getRow(app.balance.amount, service.amount, service.name, service.icon));
                             } else {
-                                content.append($('<p>').append(app.getRow(null, service.amount, service.name, service.icon)));
+                                content.append(app.getRow(null, service.amount, service.name, service.icon));
                             }
                         });
                     }
@@ -178,17 +178,46 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
                 monthly.costs = Math.round(monthly.costs);
                 monthly.income = Math.round(monthly.income);
                 $($.find('#monthly'))
-                .empty()
-                .append('monthly: ')
-                .append('<br>')
-                .append($('<i>').addClass('icon-arrow-down').css('padding-right', 20))
-                .append((monthly.costs * (-1)))
-                .append('<br>')
-                .append($('<i>').addClass('icon-arrow-up').css('padding-right', 20))
-                .append(monthly.income)
-                .append('<br>')
-                .append($('<i>').addClass('icon-chevron-right').css('padding-right', 20))
-                .append((monthly.income + monthly.costs));
+                    .empty()
+                    .append(
+                        // headline
+                        'monthly: ',
+
+                        // income
+                        $('<div>')
+                            .append(
+                                $('<i>')
+                                    .addClass('icon-arrow-down')
+                                    .css({
+                                        'padding-right': 20,
+                                        color: 'green'
+                                    }),
+                                    monthly.income
+                            ),
+
+                        // costs
+                        $('<div>')
+                            .append(
+                                $('<i>')
+                                    .addClass('icon-arrow-up')
+                                    .css({
+                                        'padding-right': 20,
+                                        color: 'red'
+                                    }),
+                                monthly.costs * (-1)
+                            ),
+
+                       // sum
+                        $('<div>')
+                            .append(
+                                $('<i>')
+                                    .addClass('icon-chevron-right')
+                                    .css({
+                                        'padding-right': 20
+                                    }),
+                                monthly.income + monthly.costs
+                            )
+                    );
 
                 //reset
                 //TODO: keep data and only recalculate if data or config changed (via hash)

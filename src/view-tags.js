@@ -12,8 +12,7 @@ define(['data', 'date', 'config'], function (data, date, config) {
              * @return {object} jquery node
              */
             renderContent: function () {
-                var content = $('<div>');
-                return content;
+                return $('<div>');
             },
 
             /**
@@ -21,21 +20,19 @@ define(['data', 'date', 'config'], function (data, date, config) {
              * @return {undefined}
              */
             render: function () {
-                //add current
-
                 var monthly = {
-                    costs: 0,
-                    income: 0
-                };
+                        costs: 0,
+                        income: 0
+                    };
 
                 //add content
                 $($.find('#title')).text('Tags');
 
                 $($.find('#content'))
-                .html('');
+                    .html('');
 
                 $($.find('#monthly'))
-                .empty();
+                    .empty();
             }
         }, config);
 

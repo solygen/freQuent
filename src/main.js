@@ -10,10 +10,9 @@ define(['data'], function (data) {
          * @return {object} service
          */
         getService: function (id) {
-            var obj =  _.filter(data, function (service) {
+            return _.find(data, function (service) {
                     return service.id === id;
                 });
-            return _.first(obj);
         },
 
         /**
