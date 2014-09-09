@@ -38,23 +38,23 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
              * @param  {string} icon
              * @return {object} jquery node (row)
              */
-            getRow: function (balance, amount, name, icon) {
-                var $row = $('<div style="padding: 2px">').addClass('row-fluid'),
+            getRow: function (balance, amount, name, icon, key) {
+                var $row = $('<div style="padding: 2px">').addClass('row-fluid ' + key).hide(),
                     $balance = $('<div>').addClass('span2').text(app.numberFormat(Math.round(balance)) || ''),
                     $amount = $('<div>').addClass('span2').text(app.numberFormat(amount)),
                     $name = $('<div>').addClass('span7').text(name),
                     $icon = $('<div>').addClass('span1').append($('<i>').addClass(icon || '').addClass('iconx'));
 
                 if (amount < 0) {
-                    $icon.css('background-color', 'rgba(255, 51, 51, 0.32)');
-                    $balance.css('background-color', 'rgba(255, 51, 51, 0.32)');
+                    $icon.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $balance.css('background-color', 'rgba(153, 153, 153, 0.08)');
                     $amount.css('background-color', '#EE0000');
-                    $name.css('background-color', 'rgba(255, 51, 51, 0.32)');
+                    $name.css('background-color', 'rgba(153, 153, 153, 0.08)');
                 } else {
-                    $icon.css('background-color', '#CDE472');
-                    $balance.css('background-color', '#CDE472');
-                    $amount.css('background-color', '#CECC15');
-                    $name.css('background-color', '#CDE472');
+                    $icon.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $balance.css('background-color', 'rgba(153, 153, 153, 0.08)');
+                    $amount.css('background-color', '#CDE472');
+                    $name.css('background-color', 'rgba(153, 153, 153, 0.08)');
                 }
 
                 //past
@@ -96,12 +96,22 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
                 _.each(keys, function (key) {
                     //retrospective
                     if (date.getRetroKey(app.balance.day) <= key) {
+                        var before = app.balance.amount;
 
                         //header
                         content.append(app.insertMonth(key));
-                        content.append($('<h3>').text(
-                            date.getWeekday(key) + ', ' + date.getDate(key).getUTCDate() + '.'
-                            )
+                        content.append(
+                            $('<h3>').attr('id', key)
+                            .text(date.getWeekday(key) + ', ' + date.getDate(key).getUTCDate() + '.')
+                            .on('click', function () {
+                                var expanded = $('.' + key).is(':visible');
+
+                                $('.' + key).toggle();
+                                $('.heading-' + key).toggle();
+                                $('.icon-' + key)
+                                    .addClass(expanded ? 'icon-chevron-right': 'icon-chevron-down')
+                                    .removeClass(expanded ? 'icon-chevron-down': 'icon-chevron-right');
+                            })
                         );
 
                         //sort
@@ -112,14 +122,29 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
 
                         //content
                         _.each(calendar[key], function (id) {
-                            var service = main.getService(id);
-                            if (app.balance.day <= key) {
+                            var service = main.getService(id),
+                                is = app.balance.day <= key;
+                            if (is)
                                 app.setBalance(app.balance.amount + service.amount);
-                                content.append(app.getRow(app.balance.amount, service.amount, service.name, service.icon));
-                            } else {
-                                content.append(app.getRow(null, service.amount, service.name, service.icon));
-                            }
+
+                            content.append(
+                                app.getRow(is ? app.balance.amount : null, service.amount, service.name, service.icon, key)
+                            );
                         });
+
+                        content.find('#' + key)
+                            .prepend(
+                                $('<i class="icon-chevron-right" style="padding-right: 10px; font-size: 16px; vertical-align: middle">')
+                                .addClass('icon-' + key)
+                            )
+                            .append(
+                                $('<span style="float: right">')
+                                    .addClass('heading-' + key)
+                                    .append(
+                                        app.numberFormat(app.balance.amount - before)
+                                    )
+                            );
+
                     }
                 });
                 return content;
