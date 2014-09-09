@@ -134,8 +134,10 @@ define(['main', 'date', 'config', 'calculation'], function (main, date, config, 
 
                         content.find('#' + key)
                             .prepend(
-                                $('<i class="icon-chevron-right" style="padding-right: 10px; font-size: 16px; vertical-align: middle">')
-                                .addClass('icon-' + key)
+                                $('<span style="display: inline-block; width: 24px">').append(
+                                    $('<i class="icon-chevron-right" style="padding-right: 10px; font-size: 16px; vertical-align: middle">')
+                                    .addClass('icon-' + key)
+                                )
                             )
                             .append(
                                 $('<span style="float: right">')
